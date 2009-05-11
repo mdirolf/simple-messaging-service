@@ -1,0 +1,77 @@
+$def with (messages)
+
+<html>
+  <head>
+    <title>Simple messaging service (web.py + MongoDB)</title>
+    <link type="text/css" href="/static/css/simpletwitter.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/static/javascript/jquery-1.3.2.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery("#image_switcher").click(function() {
+                jQuery("#image_upload_form").show("normal");
+            })
+
+            jQuery("#submit").click(function() {
+                jQuery("#ajax-loader").show();
+            })
+        })
+
+        function popUp(url) {
+            newwindow=window.open(url,'name','height=560,width=660');
+            if (window.focus) {
+                newwindow.focus()
+            }
+
+            return false;
+        }
+    </script>
+  </head>
+
+  <body>
+    <div id="title">
+      <p>Simple messaging service</p>
+    </div>
+    <div id="main">
+      <div id="control">
+        <p>Enter your message:</p>
+        <form action="/" method="POST" enctype="multipart/form-data">
+          <textarea rows="2" id="id_text" name="text"></textarea>
+          <p>Enter your nickname:</p>
+          <input type="text" id="id_nickname" name="nickname" class="nickname"/>
+          <p class="link" id="image_switcher">Upload image</p>
+          <div id="image_upload_form" style="display: none">
+            <input id="id_image" type="file" name="image"/>
+            <img src="/static/images/ajax-loader.gif" id="ajax-loader" style="display: none"/>
+          </div>
+          <input type="submit" class="submit" value="Update" id="submit"/>
+        </form>
+      </div>
+      <div class="separator"></div>
+      $for message in messages:
+        <div class="message">
+          <table border="0" width="660px">
+            <tr>
+              <td width="90px">
+                $# thumbnail here
+              </td>
+              <td valign="top">
+                <div class="message-nickname">$message["nick"]</div>
+                <div class="message-text">$message["text"]</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" align="right">
+                <div class="message-date">
+                  Posted at $message["date"].strftime("%H:%M %d/%m/%Y")
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="separator"></div>
+      <div class="navigation">
+        <a href="/page/0">&lt; Back</a>
+        <a href="/page/2">Next &gt;</a>
+      </div>
+  </body>
+</html>
