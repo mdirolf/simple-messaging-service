@@ -67,7 +67,7 @@ $def with (messages, previous, next)
             <tr>
               <td colspan="2" align="right">
                 <div class="message-date">
-                  Posted at $message["date"].strftime("%H:%M %d/%m/%Y")
+                  Posted at $strftime(message["date"], "%H:%M %d/%m/%Y")
                 </div>
               </td>
             </tr>

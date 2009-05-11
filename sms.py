@@ -9,12 +9,16 @@ from pymongo.connection import Connection
 from pymongo import DESCENDING
 import gridfs
 
+# Workaround an incompatible between web.py templates and the datetime module in Python 2.5
+def strftime(date, format):
+    return date.strftime(format)
+
 urls = ("/image/(\w+)/(.*)", "File",
         "/image/(.*)", "File",
         "/", "Main",
         "/page/(\d+)", "Main")
 app = web.application(urls, globals())
-render = web.template.render("templates/")
+render = web.template.render("templates/", globals={"strftime": strftime})
 db = Connection().sms
 fs = gridfs.GridFS(db)
 page_size = 10
