@@ -1,4 +1,4 @@
-$def with (messages)
+$def with (messages, previous, next)
 
 <html>
   <head>
@@ -55,7 +55,7 @@ $def with (messages)
                 $# thumbnail here
               </td>
               <td valign="top">
-                <div class="message-nickname">$message["nick"]</div>
+                <div class="message-nickname">$message["nickname"]</div>
                 <div class="message-text">$message["text"]</div>
               </td>
             </tr>
@@ -70,8 +70,10 @@ $def with (messages)
         </div>
         <div class="separator"></div>
       <div class="navigation">
-        <a href="/page/0">&lt; Back</a>
-        <a href="/page/2">Next &gt;</a>
+        $if previous != None:
+          <a href="/page/$previous">&lt; Back</a>
+        $if next != None:
+          <a href="/page/$next">Next &gt;</a>
       </div>
   </body>
 </html>
