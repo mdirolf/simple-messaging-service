@@ -111,4 +111,5 @@ class File:
 
 
 if __name__ == "__main__":
+    db.messages.create_index("date", DESCENDING)
     app.run()
