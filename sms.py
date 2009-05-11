@@ -17,7 +17,7 @@ app = web.application(urls, globals())
 render = web.template.render("templates/")
 db = Connection().sms
 fs = gridfs.GridFS(db)
-page_size = 5
+page_size = 10
 
 
 class Main:
@@ -44,7 +44,8 @@ class Main:
         checks for uniqueness.
         """
         filename = name.rsplit(".", 1)
-        filename[0] = filename[0] + "".join(random.sample(string.letters + string.digits, 10))
+        filename[0] = "%s-%s" % (filename[0],
+                                 "".join(random.sample(string.letters + string.digits, 10)))
         filename = ".".join(filename)
 
         # Try again if this filename already exists
