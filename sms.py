@@ -19,7 +19,15 @@ urls = ("/image/(\w+)/(.*)", "File",
         "/page/(\d+)", "Main")
 app = web.application(urls, globals())
 render = web.template.render("templates/", globals={"strftime": strftime})
-db = Connection().sms
+
+# Use 'sms' database on local mongod instance by default
+# See settings.py to change this
+try:
+    import settings
+    db = settings.db
+except:
+    db = Connection().sms
+
 fs = gridfs.GridFS(db)
 page_size = 10
 
