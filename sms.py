@@ -81,7 +81,8 @@ class Main:
             filename = self.generate_filename(post_data.image.filename)
 
             # Only accept appropriate file extensions
-            if not filename.endswith((".jpg", ".png", ".bmp", ".gif")):
+            if not filename.endswith((".jpg", ".JPG", ".jpeg", ".JPEG", ".png",
+                                      ".PNG", ".bmp", ".BMP", ".gif", ".GIF")):
                 raise web.seeother("/")
 
             message["image"] = filename
